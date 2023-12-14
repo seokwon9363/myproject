@@ -1,0 +1,11 @@
+package kr.or.ddit.groupware.webhard.service;
+
+import kr.or.ddit.vo.groupware.WebHardVO;
+
+public interface WebHardService {
+
+	void insertFile(WebHardVO webVO);
+
+	void selectListFile(WebHardVO webVO);
+
+}

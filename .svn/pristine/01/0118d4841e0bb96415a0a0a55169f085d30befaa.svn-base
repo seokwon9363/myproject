@@ -1,0 +1,10 @@
+package kr.or.ddit.vo.groupware;
+
+import lombok.Data;
+
+@Data
+public class DeptVO {
+	private String deptCd;
+	private String deptName;
+	private String uDeptCd;
+}

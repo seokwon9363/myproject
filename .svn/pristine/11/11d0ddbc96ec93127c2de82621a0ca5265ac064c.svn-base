@@ -1,0 +1,31 @@
+package kr.or.ddit.vo.groupware;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import javax.validation.constraints.NotBlank;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+@Data
+@EqualsAndHashCode(of = "mailCd")
+public class MailVO {
+	
+	@NotBlank
+	private String mailCd; //메일번호 ex) M20231106001
+	@NotBlank
+	private String mailSj; // 메일제목
+	@NotBlank
+	private String mailCn; // 메일내용
+	@NotBlank
+	private LocalDateTime mailTrnsmisDt; // 발송일시 2023/01/07(연/월/일) 09:00 (일시)
+	private String mailSender; //발신자
+	@NotBlank
+	private String mailSaveYn; //임시저장여부 Y(임시저장중), N(임시저장아님)
+	@NotBlank
+	private String mailDeleteFlag; //삭제여부 0(일반), 1(삭제), 2(영구삭제)
+	@NotBlank
+	private String mrImpoYn; //중요여부 Y(중요), N(안중요)
+	
+	
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.company.org.dao.OrgDAO"> 
+
+	<resultMap type="EmployeeVO" id="empMap" autoMapping="true">
+		<id property="empCd" column="EMP_CD" />
+		<association property="dept" javaType="DeptVO" autoMapping="true"/>
+	</resultMap>
+	
+	<select id="selectListOrg" resultMap="empMap">
+		SELECT
+			 E.EMP_CD, E.EMP_PW, E.EMP_NAME, E.EMP_ZIP, E.EMP_ADRES
+    		, E.EMP_ADRES_DETAIL, E.EMP_BIRTH, E.EMP_SSN, E.EMP_RANK
+    		, E.EMP_HIREDATE, E.DEPT_CD, E.EMP_MAIL, E.EMP_LOGIN_FLAG
+    		, E.EMP_PROFILE_IMG, E.EMP_TELNO, E.EMP_SIGN_IMG
+    		, E.EMP_CRTFC_NO, E.EMP_QR, E.EMP_EXTENSION, E.EMP_POSITION
+    		, E.EMP_EMAIL_SECOND, E.EMP_SUPRR
+            ,  D.DEPT_CD, D.DEPT_NAME, D.U_DEPT_CD
+		FROM
+		    EMPLOYEE E, DEPT D
+		WHERE    
+		   E.DEPT_CD = D.DEPT_CD
+		ORDER BY E.EMP_SUPRR ASC
+	</select>
+	
+	<select id="selectListDept" resultType="DeptVO">
+		SELECT 
+			DEPT_CD, DEPT_NAME, U_DEPT_CD
+		FROM
+			DEPT	
+	</select>
+</mapper>
+
+

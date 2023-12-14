@@ -1,0 +1,12 @@
+package kr.or.ddit.vo.groupware;
+
+import lombok.Data;
+
+@Data
+public class WebHardVO {
+
+	private Integer webSnm;
+	private String webCours;
+	private String webTy;
+	private String webRnm;
+}

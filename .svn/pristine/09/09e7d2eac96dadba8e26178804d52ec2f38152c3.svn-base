@@ -1,0 +1,19 @@
+package kr.or.ddit.vo;
+
+import java.util.List;
+
+import javax.validation.constraints.NotBlank;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(of="chatRoomCd")
+public class ChatRoomVO {
+	@NotBlank
+	private String chatRoomCd; //채팅방번호 ex) 23 11 03 0001
+	@NotBlank
+	private String chatRoomYn; //채팅방유형번호 ex) 0(일대일), 1(그룹)
+	
+	private List<ChatParticipantVO> partiesList; // has many(1:N 관계)
+}

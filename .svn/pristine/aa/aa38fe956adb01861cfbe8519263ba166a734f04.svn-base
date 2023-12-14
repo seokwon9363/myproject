@@ -1,0 +1,9 @@
+package kr.or.ddit.groupware.attendance.service;
+
+import kr.or.ddit.vo.PaginationInfo;
+
+public interface AttendanceService {
+
+	void attendanceList(PaginationInfo paging);
+
+}

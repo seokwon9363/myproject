@@ -1,0 +1,117 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>    
+<style>
+html, body {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    font-family: Helvetica;
+    overflow: hidden;
+}
+
+#tree {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+</style>
+<%-- <script src=" ${pageContext.request.contextPath }/resources/js/app/org/orgchart.js"></script> --%>
+<script src="https://balkan.app/js/OrgChart.js"></script>
+
+
+
+/
+<div id="tree"></div>
+
+
+
+
+
+
+<script>
+
+
+
+$.ajax({
+	type:"GET",
+	url:"/org/list",
+	contentType:"application/json",
+	dataType:"json",
+	success:function(rslt){
+		let list = rslt.list;
+		let chart = new OrgChart(document.getElementById("tree"), {
+		    template: "ula",
+		    enableSearch: false,
+		    enableDragDrop: true,    
+		    mouseScrool: OrgChart.none,
+		    tags: {
+		        "assistant": {
+		            template: "ula"
+		        }
+		    },
+		    nodeMenu: {
+		        details: { text: "상세보기" },
+		        edit: { text: "편집" },
+		        add: { text: "추가" },
+		        remove: { text: "제거" }
+		    },
+		    nodeBinding: {
+		    	id : "id",
+		    	pid : "pid",
+		        field_0: "이름",
+		        field_1: "부서명",
+		        field_2: "사번",
+		        img_0: "img"
+		    },
+		    toolbar: {
+		        fullScreen: true,
+		        zoom: true,
+		        fit: true,
+		        expandAll: true
+		    },
+		});
+		
+		let text =[];
+		for(let i=0; i<list.length; i++){
+			const a={
+					id: `\${list[i].empCd}`,
+					pid:`\${list[i].empSuprr}`,
+						이름: `\${list[i].empName}`, 
+						부서명: `\${list[i].dept.deptName}`, 
+						사번:`\${list[i].empCd}`, 
+						img: "https://cdn.balkan.app/shared/2.jpg"};
+			
+// 			text.push = `{ id: \${list[i].empCd}, pid: \${list[i].empSuprr}, 이름: "대표이사", 부서명: "CEO", 사번:"11", img: "https://cdn.balkan.app/shared/2.jpg" },`;
+			text.push(a);
+		}
+		console.log(text);
+		chart.load(
+				text
+				
+// 				[
+// 		    { id: 1, pid: 0, 이름: "대표이사", 부서명: "CEO", 사번:"11", img: "https://cdn.balkan.app/shared/2.jpg" },
+// 		    { id: 2, pid: 1, 이름: "본부장", 부서명: "Sales Manager", 사번:"11",  img: "https://cdn.balkan.app/shared/3.jpg" },
+// 		    { id: 3, pid: 2, 이름: "Caden Ellison", 부서명: "Dev Manager", 사번:"11",  img: "https://cdn.balkan.app/shared/4.jpg" },
+// 		    { id: 4, pid: 2, 이름: "Elliot Patel", 부서명: "Sales", 사번:"11",  img: "https://cdn.balkan.app/shared/5.jpg" },
+// 		    { id: 5, pid: 2, 이름: "Lynn Hussain", 부서명: "Sales", 사번:"11",  img: "https://cdn.balkan.app/shared/6.jpg" },
+// 		    { id: 6, pid: 3, 이름: "Tanner May", 부서명: "Developer", 사번:"11",  img: "https://cdn.balkan.app/shared/7.jpg" },
+// 		]
+				);
+		
+		
+	},
+	error:function(xhr){
+		alert(xhr.status);
+	}
+
+})
+
+
+
+
+</script>
+/

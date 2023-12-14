@@ -1,0 +1,59 @@
+package kr.or.ddit.login.service;
+
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.common.enumpkg.ServiceResult;
+import kr.or.ddit.login.dao.LoginDAO;
+import kr.or.ddit.vo.groupware.EmployeeVO;
+import lombok.RequiredArgsConstructor;
+
+/**
+ * @author 박민주
+ * @since 2023. 11. 7.
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet 
+ * <pre>
+ * [[개정이력(Modification Information)]]
+ * 수정일                          수정자               수정내용
+ * --------     --------    ----------------------
+ * 2023. 11. 7.      박민주	       최초작성
+ * Copyright (c) 2023 by DDIT All right reserved
+ * </pre>
+ */
+
+@RequiredArgsConstructor
+@Service
+public class AuthenticateServiceImpl implements AuthenticateService {
+
+	private final LoginDAO loginDao;
+
+	@Override
+	public ServiceResult authenticate(EmployeeVO inputData) {
+		EmployeeVO saved = loginDao.selectMemberForAuth(inputData);
+		ServiceResult result = null;
+
+		if (saved != null) {
+			String inputPw = inputData.getEmpPw();
+			String savedPw = saved.getEmpPw();
+			if (inputPw.equals(savedPw)) {
+				try {
+					BeanUtils.copyProperties(inputData, saved); //동일한 properties 를 복사함!
+					// 비밀번호가 일치 시, 로그인 성공 OK
+					result = ServiceResult.OK;
+				} catch (IllegalAccessException | InvocationTargetException e) {
+					throw new RuntimeException(e);
+				} 
+			} else {
+				// 비밀번호 불일치 시, 로그인 실패 INVALIDPASSWORD
+				result = ServiceResult.INVALIDPASSWORD;
+			}
+		} else {
+			// 아예 입력한 사번이 존재하지 않으면 NOTEXIST
+			result = ServiceResult.NOTEXIST;
+		}
+		return result;
+	}
+}

@@ -1,0 +1,27 @@
+package kr.or.ddit.groupware.attendance.controller;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ddit.groupware.attendance.service.AttendanceService;
+import kr.or.ddit.vo.PaginationInfo;
+import kr.or.ddit.vo.groupware.AttendanceVO;
+
+@Controller
+@RequestMapping("/attendance")
+public class AttendanceController {
+
+	@Inject
+	private AttendanceService service;
+	
+	@GetMapping
+	public String attendanceList(PaginationInfo<AttendanceVO> paging,Model model) {
+		service.attendanceList(paging);
+		model.addAttribute("paging",paging);
+		return "attendance/attendanceList";
+	}
+}

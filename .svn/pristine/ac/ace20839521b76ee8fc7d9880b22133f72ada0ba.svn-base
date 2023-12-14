@@ -1,0 +1,12 @@
+package kr.or.ddit.groupware.attendance.dao;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import kr.or.ddit.vo.PaginationInfo;
+
+@Mapper
+public interface AttendanceDAO {
+
+	void attendanceList(PaginationInfo paging);
+
+}

@@ -1,0 +1,5 @@
+package kr.or.ddit.groupware.board.notice.controller;
+
+public class NoticeBoardController {
+
+}

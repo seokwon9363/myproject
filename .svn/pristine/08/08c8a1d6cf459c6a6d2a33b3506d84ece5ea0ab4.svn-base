@@ -1,0 +1,102 @@
+package kr.or.ddit.vo.groupware;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import kr.or.ddit.validate.grouphint.DeleteGroup;
+import kr.or.ddit.validate.grouphint.InsertGroup;
+import kr.or.ddit.vo.CommonVO;
+import kr.or.ddit.vo.pms.ProjectVO;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+/**
+ * @author 작성자명
+ * @since 2023. 11. 7.
+ * @version 1.0
+ * @see javax.servlet.http.HttpServlet 
+ * <pre>
+ * [[개정이력(Modification Information)]]
+ * 수정일                          수정자               수정내용
+ * --------     --------    ----------------------
+ * 2023. 11. 7.      박민주       1차 수정 (lombok annotation 추가)
+ * 2023. 11. 8.      송석원       2차 수정(프로젝트vo연결)
+ * 2023. 11. 9.      오경석       3차 수정(has a 관계 추가)
+ * Copyright (c) 2023 by DDIT All right reserved
+ * </pre>
+ */
+
+@EqualsAndHashCode(of = "empCd")
+@Data
+public class EmployeeVO implements Serializable {
+
+	@NotBlank(groups = { Default.class, DeleteGroup.class })
+	private String empCd;
+	@NotBlank(groups = { Default.class, DeleteGroup.class }) // 탈퇴시 이중인증 위해
+	@Size(min = 8, max = 12, groups = { Default.class, DeleteGroup.class })
+	@ToString.Exclude
+	@JsonIgnore
+	private transient String empPw;
+	@NotBlank(groups = InsertGroup.class) // 가입시만 검증을 표현
+	@Size(max = 50, groups = InsertGroup.class)
+	private String empName; // 수정 대상 아님
+
+	//마이페이지의 수정가능 목록 : 프로필사진,비밀번호,내선전화,휴대전화,주소
+	@NotBlank
+	@Size(max = 5, min = 5)
+	@ToString.Exclude
+	private transient String empZip;
+	@NotBlank
+	@ToString.Exclude
+	private transient String empAdres;
+	@NotBlank
+	@ToString.Exclude
+	private transient String empAdresDetail;
+	@NotBlank
+	private String empRank;
+	@NotBlank
+	private String empPosition;
+	@NotBlank
+	private String deptCd;
+	@NotBlank
+	@Email
+	private String empMail;
+	private String empProfileImg;
+	private String empSignImg;
+	@NotBlank
+	@Pattern(regexp = "010-\\d{3,4}-\\d{4}")
+	private String empTelno;
+	private String empCrtfcNo;
+	private String empExtension;
+	@Email
+	private String empEmailSecond;
+	
+	@NotBlank
+	private String empLoginFlag;
+	private String empQr;
+
+	private String empBirth;
+	private transient String empSsn;
+	private String empHiredate;
+	
+	@NotBlank
+	private String empSuprr;
+	
+
+	private DeptVO dept; // has a 관계
+	private CommonVO common;	// has a 관계
+	
+	
+	private  List<ProjectVO> projectList; //1:N 관
+	private List<MailVO> mailList;  //1:N 관
+
+}
