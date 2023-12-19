@@ -1,8 +1,0 @@
-package kr.or.ddit.pms.job.service;
-
-import org.springframework.stereotype.Service;
-
-@Service
-public class jobServiceImpl implements JobService{
-
-}

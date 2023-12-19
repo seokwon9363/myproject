@@ -1,8 +1,0 @@
-package kr.or.ddit.cal.service;
-
-import kr.or.ddit.vo.PaginationInfo;
-import kr.or.ddit.vo.SearchVO;
-
-public interface CalService {
-	void test(PaginationInfo<SearchVO> paging);
-}

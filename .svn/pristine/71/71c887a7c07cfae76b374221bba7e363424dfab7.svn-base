@@ -1,5 +1,0 @@
-package kr.or.ddit.pms.job.service;
-
-public interface JobService {
-
-}

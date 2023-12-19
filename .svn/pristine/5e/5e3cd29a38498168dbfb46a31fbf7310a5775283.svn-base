@@ -1,5 +1,0 @@
-package kr.or.ddit.groupware.sanction.dao;
-
-public interface SanctionDAO {
-
-}

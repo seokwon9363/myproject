@@ -1,5 +1,0 @@
-package kr.or.ddit.groupware.sanction.service;
-
-public class SanctionServiceImpl implements SanctionService {
-
-}

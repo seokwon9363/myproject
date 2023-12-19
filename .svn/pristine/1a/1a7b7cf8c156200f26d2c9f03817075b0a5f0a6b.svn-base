@@ -1,4 +1,0 @@
-package kr.or.ddit.messenger.service;
-
-public interface MessengerService {
-}
